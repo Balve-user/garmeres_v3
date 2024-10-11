@@ -60,7 +60,7 @@ const translations: { [key: string]: Translated<string> } = {
   },
   updated: {
     en: "Last updated",
-    se: "Ođasmahttán",
+    se: "Ođasmahtton",
   },
   empty: {
     en: "No upcoming events",
