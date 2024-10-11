@@ -56,7 +56,7 @@ export default function EventsBrowserInteractive({
 const translations: { [key: string]: Translated<string> } = {
   title: {
     en: `What's happening in queer Sápmi?`,
-    se: "Arvedávgge doalut Sápmis",
+    se: "Arvedávgge doalut Sámis",
   },
   updated: {
     en: "Last updated",
