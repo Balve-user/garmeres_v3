@@ -28,7 +28,7 @@ To work on this repo locally, you need to install the following on your machine:
 Open your machines terminal or command line. Next, clone this repository using **Git** by running the following command:
 
 ```
-git clone https://github.com/leevi978/garmeres_v3.git
+git clone https://github.com/balve-user/garmeres_v3.git
 ```
 
 Open the repository folder with **Visual Studio Code**. For simplicity, you may want to run the rest of the commands from a VSCode terminal. That way you can the the code as well as the terminal at the same time.
