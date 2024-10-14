@@ -36,6 +36,15 @@ export default function PortableText({
       bullet: ({ children }) => <ul className="list-disc">{children}</ul>,
       number: ({ children }) => <ol className="list-decimal">{children}</ol>,
     },
+    marks: {
+      link: ({ children, value }) => {
+        return (
+          <a href={value.href} rel="nofollow" target="_blank">
+            {children}
+          </a>
+        );
+      },
+    },
   };
   return <SanityPortableText value={value} components={components} />;
 }
