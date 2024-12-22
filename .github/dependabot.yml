@@ -11,30 +11,57 @@ updates:
       interval: "daily"
     groups:
       core:
+        update-types:
+          - "minor"
+          - "patch"
         patterns:
-          - "react*"
-          - "@types/react*"
+          - "react"
+          - "react-*"
+          - "@types/react"
+          - "@types/react-*"
           - "@types/node"
           - "typescript"
           - "server-only"
+      next-sanity:
+        update-types:
+          - "minor"
+          - "patch"
+        patterns:
+          - "next-sanity"
+          - "next-sanity-*"
       next:
+        update-types:
+          - "minor"
+          - "patch"
         patterns:
-          - "*next*"
+          - "next"
+          - "next-*"
+          - "*-next"
+          - "@next/*"
+          - "nextjs-*"
       sanity:
+        update-types:
+          - "minor"
+          - "patch"
         patterns:
-          - "*sanity*"
+          - "@sanity/*"
+          - "sanity"
+          - "sanity-*"
+          - "*-sanity"
       mui:
+        update-types:
+          - "minor"
+          - "patch"
         patterns:
-          - "*mui*"
-          - "*emotion*"
-      eslint:
-        patterns:
-          - "*eslint*"
-      styling:
-        patterns:
-          - "*css*"
-          - "autoprefixer"
-          - "*styled*"
+          - "@mui/*"
+      dev:
+        update-types:
+          - "minor"
+          - "patch"
+        dependency-type: "development"
       default:
+        update-types:
+          - "minor"
+          - "patch"
         patterns:
           - "*"
