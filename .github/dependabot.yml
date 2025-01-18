@@ -40,11 +40,13 @@ updates:
       patches:
         applies-to: version-updates
         dependency-type: production
-        update-types: "patch"
+        update-types:
+          - "patch"
       patches-dev:
         applies-to: version-updates
         dependency-type: development
-        update-types: "patch"
+        update-types:
+          - "patch"
 
       # Third parties
       sanity:
