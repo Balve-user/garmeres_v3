@@ -10,58 +10,68 @@ updates:
     schedule:
       interval: "daily"
     groups:
-      core:
+      # Security patches
+      security-patches:
+        applies-to: security-updates
+        dependency-type: production
+        update-types:
+          - "patch"
+      security-patches-dev:
+        applies-to: security-updates
+        dependency-type: development
+        update-types:
+          - "patch"
+
+      # Security
+      security:
+        applies-to: security-updates
+        dependency-type: production
         update-types:
           - "minor"
-          - "patch"
-        patterns:
-          - "react"
-          - "react-*"
-          - "@types/react"
-          - "@types/react-*"
-          - "@types/node"
-          - "typescript"
-          - "server-only"
-      next-sanity:
+          - "major"
+      security-dev:
+        applies-to: security-updates
+        dependency-type: development
         update-types:
           - "minor"
-          - "patch"
+          - "major"
+
+      # Version patches
+      patches:
+        applies-to: version-updates
+        dependency-type: production
+        update-types: "patch"
+      patches-dev:
+        applies-to: version-updates
+        dependency-type: development
+        update-types: "patch"
+
+      # Third parties
+      sanity:
         patterns:
-          - "next-sanity"
-          - "next-sanity-*"
+          - "sanity"
+          - "sanity*"
+          - "@sanity/*"
+        update-types:
+          - "patch"
+          - "minor"
       next:
-        update-types:
-          - "minor"
-          - "patch"
         patterns:
           - "next"
-          - "next-*"
-          - "*-next"
+          - "next*"
           - "@next/*"
-          - "nextjs-*"
-      sanity:
         update-types:
-          - "minor"
           - "patch"
-        patterns:
-          - "@sanity/*"
-          - "sanity"
-          - "sanity-*"
-          - "*-sanity"
+          - "minor"
       mui:
-        update-types:
-          - "minor"
-          - "patch"
         patterns:
           - "@mui/*"
-      dev:
+          - "@emotion/*"
+          - "styled-components"
+          - "postcss"
+          - "tailwindcss"
+          - "tailwindcss*"
+          - "@tailwindcss/*"
         update-types:
-          - "minor"
           - "patch"
-        dependency-type: "development"
-      default:
-        update-types:
           - "minor"
-          - "patch"
-        patterns:
-          - "*"
