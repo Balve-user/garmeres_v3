@@ -9,6 +9,8 @@ import callToAction from "./schemas/fields/call-to-action";
 import blogBrowser from "./schemas/blog-browser";
 import eventsBrowser from "./schemas/events-browser";
 import seo from "./schemas/documents/seo";
+import registrationForm from "./schemas/registration-form";
+import accordion from "./schemas/accordion";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -22,5 +24,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     blogBrowser,
     eventsBrowser,
     seo,
+    registrationForm,
+    accordion,
   ],
 };

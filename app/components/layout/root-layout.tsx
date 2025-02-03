@@ -25,15 +25,16 @@ export default function RootLayout({
 }) {
   const language = params?.language || defaultLanguage;
   return (
-    <html lang={language} className={customFont.className}>
+    <html
+      lang={language}
+      className={`overflow-x-visible ${customFont.className}}`}
+    >
       <body>
         <div className="fixed top-0 left-0 right-0 bottom-0 w-full h-full bg-zinc-900 -z-20" />
         <PreviewWrapper>
           <Header language={language} menuItems={menuItems} />
           <Analytics language={language} />
-          <main className="flex flex-col min-h-screen max-w-screen">
-            {children}
-          </main>
+          <main className="flex flex-col overflow-x-hidden">{children}</main>
           <Footer language={language} />
         </PreviewWrapper>
       </body>
