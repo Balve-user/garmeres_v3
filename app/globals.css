@@ -10,10 +10,10 @@
     @apply text-3xl font-normal;
   }
   h2 {
-    @apply text-2xl font-normal;
+    @apply text-xl font-normal;
   }
   h3 {
-    @apply text-xl font-normal;
+    @apply text-lg font-normal;
   }
   b,
   strong {

@@ -7,7 +7,10 @@ import PortableImage, { PortableImageProps } from "./portable-image";
 import { PortableTextBlock } from "sanity";
 import BlogBrowser from "./blog-browser";
 import EventsBrowser from "./events-browser";
+import RegistrationForm from "./registrationForm";
 import { Language } from "@/types/language";
+import Accordion from "./accordion";
+import { ReactNode } from "react";
 
 export default function PortableText({
   value,
@@ -30,6 +33,23 @@ export default function PortableText({
         props: PortableTextTypeComponentProps<{ language: Language }>
       ) => {
         return <EventsBrowser {...props.value} />;
+      },
+      "registration-form": (
+        props: PortableTextTypeComponentProps<{ src: string }>
+      ) => {
+        return <RegistrationForm {...props.value} />;
+      },
+      accordion: (
+        props: PortableTextTypeComponentProps<{
+          summary: ReactNode | string;
+          text: PortableTextBlock[];
+        }>
+      ) => {
+        return (
+          <Accordion summary={props.value.summary}>
+            <PortableText value={props.value.text} />
+          </Accordion>
+        );
       },
     },
     list: {
