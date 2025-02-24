@@ -4,7 +4,7 @@
 
 @layer base {
   * {
-    @apply text-base font-light leading-8;
+    @apply text-base font-light;
   }
   h1 {
     @apply text-3xl font-normal;
@@ -38,4 +38,8 @@
   footer * {
     @apply text-center;
   }
+}
+
+@theme {
+  --*: initial;
 }
