@@ -1,28 +1,38 @@
-import { ListItemOptions } from "./structure/tools/list-item";
+import { StructureBuilder } from "sanity/structure";
+import {
+	CustomListItem,
+	DeskDefinition,
+	DeskGroup,
+	DeskSchemaType,
+} from "./types";
 
-export const deskDefinition: DeskDefinition[] = [
+export const deskDefinition: (DeskDefinition | CustomListItem)[] = [
 	{
 		type: "group",
-		title: "Settings",
+		title: "Garmeres information",
 		items: [
 			{
-				schemaType: "contact",
-				title: "Contact information",
+				schemaType: "organisation-information",
+				title: "Organisation",
 				singleton: true,
 			},
 			{
-				schemaType: "membership-registration",
-				title: "Membership registration",
+				schemaType: "contact-information",
+				title: "Contact",
 				singleton: true,
-				translated: false,
 			},
 			{
-				schemaType: "seo",
-				title: "Site metadata",
+				schemaType: "bank-information",
+				title: "Bank",
 				singleton: true,
-				translated: true,
 			},
 		],
+	},
+	{
+		schemaType: "person",
+		title: "Persons",
+		singleton: false,
+		translated: false,
 	},
 	{
 		schemaType: "page",
@@ -47,20 +57,49 @@ export const deskDefinition: DeskDefinition[] = [
 				doc.slug.current ? `/${doc.slug.current}` : ""
 			}`,
 	},
+
+	{
+		type: "group",
+		title: "Media",
+		items: [
+			{
+				schemaType: "reusable-image",
+				title: "Images",
+				singleton: false,
+				translated: false,
+			},
+		],
+	},
+	{
+		type: "group",
+		title: "Settings",
+		items: [
+			{
+				schemaType: "contact",
+				title: "Contact information",
+				singleton: true,
+			},
+			{
+				schemaType: "membership-registration",
+				title: "Membership registration",
+				singleton: true,
+				translated: false,
+			},
+			{
+				schemaType: "seo",
+				title: "Site metadata",
+				singleton: true,
+				translated: true,
+			},
+		],
+	},
 ];
 
-export type DeskDefinition = DeskSchemaType | DeskGroup;
-
-export type DeskSchemaType = {
-	schemaType: string;
-	type?: "schema";
-} & ListItemOptions;
-
-export type DeskGroup = {
-	title: string;
-	type: "group";
-	items: DeskSchemaType[];
-};
+export function itemIsDeskDefinition(
+	item: DeskDefinition | CustomListItem
+): item is DeskDefinition {
+	return typeof item !== "function";
+}
 
 function definitionIsGroup(
 	definition: DeskDefinition
@@ -68,13 +107,24 @@ function definitionIsGroup(
 	return definition.type === "group";
 }
 
-export const deskSchemaTypes = deskDefinition.flatMap((definition) =>
-	definitionIsGroup(definition) ? definition.items : definition
-);
+const getDeskSchemaTypes: (deskGroup: DeskGroup) => DeskSchemaType[] = (
+	deskGroup: DeskGroup
+) =>
+	deskGroup.items
+		.filter(itemIsDeskDefinition)
+		.flatMap((item) =>
+			definitionIsGroup(item) ? getDeskSchemaTypes(item) : item
+		);
+
+export const deskSchemaTypes: DeskSchemaType[] = deskDefinition
+	.filter(itemIsDeskDefinition)
+	.flatMap((definition) =>
+		definitionIsGroup(definition) ? getDeskSchemaTypes(definition) : definition
+	);
 
 export const singletonTypes = new Set(
 	deskSchemaTypes
-		.filter((type) => type.singleton === true)
+		.filter((type) => type.singleton)
 		.map((type) => type.schemaType)
 );
 export const translatedTypes = deskSchemaTypes

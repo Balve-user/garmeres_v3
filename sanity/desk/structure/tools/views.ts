@@ -2,16 +2,16 @@ import {
 	ComponentViewBuilder,
 	FormViewBuilder,
 	StructureBuilder,
-} from 'sanity/structure';
+} from "sanity/structure";
 import {
 	Language,
 	defaultLanguage,
 	languageNames,
 	languages,
-} from '@/types/language';
-import { Iframe, IframeProps } from 'sanity-plugin-iframe-pane';
-import { SanityDocument } from 'sanity';
-import { getTranslatedDocument } from '@/services/sanity-service';
+} from "@/types/language";
+import { Iframe, IframeProps } from "sanity-plugin-iframe-pane";
+import { SanityDocument } from "sanity";
+import { getTranslatedDocument } from "@/services/sanity-service";
 
 type PreviewPath = ((doc: SanityDocument) => string) | string;
 
@@ -19,7 +19,7 @@ function resolvePreviewPath(
 	path: PreviewPath,
 	document: SanityDocument | null
 ) {
-	if (typeof path === 'function') {
+	if (typeof path === "function") {
 		if (!document) return undefined;
 		return path(document);
 	}
@@ -33,7 +33,7 @@ type PreviewUrlOptions = {
 
 function createPreviewUrl({ document, path }: PreviewUrlOptions) {
 	return `${window.location.protocol}//${window.location.host}/api/preview${
-		path ? `?path=${resolvePreviewPath(path, document)}` : ''
+		path ? `?path=${resolvePreviewPath(path, document)}` : ""
 	}`;
 }
 
@@ -43,9 +43,9 @@ function createPreview(
 	path?: PreviewPath,
 	language?: Language
 ) {
-	const previewId = `${id}-preview${language ? `-${language}` : ''}`;
+	const previewId = `${id}-preview${language ? `-${language}` : ""}`;
 	const previewTitle = `Preview${
-		language ? ` - ${languageNames[language]}` : ''
+		language ? ` - ${languageNames[language]}` : ""
 	}`;
 	return S.view
 		.component((props: IframeProps) => {
@@ -54,9 +54,10 @@ function createPreview(
 				options: {
 					url: async (doc) => {
 						let document = doc;
+						console.log(doc);
 						if (doc && language && language !== defaultLanguage) {
 							const data = await getTranslatedDocument(
-								doc._id.replace('drafts.', '')
+								doc._id.replace("drafts.", "")
 							);
 							document = data[language];
 						}

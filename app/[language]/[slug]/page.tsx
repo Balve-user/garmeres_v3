@@ -1,59 +1,35 @@
-import { generateStaticSlugParams } from "@/app/navigation/slug";
-import { Language, forceLanguage } from "@/types/language";
-import Component from "./component";
-import Preview from "./preview";
-import { pageQuery } from "@/sanity/lib/query";
-import { sanityFetch } from "@/sanity/lib/fetch";
-import LiveQuery from "next-sanity/preview/live-query";
-import { draftMode } from "next/headers";
-import { PageDocument } from "@/types/sanity-types";
-import { Metadata } from "next";
-import { createPageMetadata } from "@/services/seo-service";
-import { notFound } from "next/navigation";
-
-export const generateStaticParams = () => generateStaticSlugParams("page");
-
-export const dynamicParams = false;
+import { PAGES_QUERY, PAGE_QUERY } from "@/sanity/lib/queries";
+import { QueryParams } from "next-sanity";
+import { client } from "@/sanity/lib/client";
+import { sanityFetch } from "@/sanity/lib/live";
+import { PAGE_QUERYResult, PAGES_QUERYResult } from "@/sanity.types";
+import PageComponent from "@/components/sanity/Page";
 
 export default async function Page({
-  params,
+	params,
 }: {
-  params: {
-    language?: Language;
-    slug: string;
-  };
+	params: Promise<QueryParams>;
 }) {
-  const language = forceLanguage(params.language);
-  const slug = params.slug;
-  const data = await sanityFetch<PageDocument>({
-    query: pageQuery(slug, language),
-  });
-  if (!data) notFound();
-  return (
-    <LiveQuery
-      enabled={draftMode().isEnabled}
-      query={pageQuery(slug, language)}
-      initialData={data}
-      as={Preview}
-    >
-      <Component document={data} />
-    </LiveQuery>
-  );
+	const { data: document } = await sanityFetch({
+		query: PAGE_QUERY,
+		params: await params,
+	});
+	return <PageComponent post={} />;
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: {
-    language?: Language;
-    slug: string;
-  };
-}): Promise<Metadata> {
-  const language = forceLanguage(params.language);
-  const slug = params.slug;
-  const document = await sanityFetch<PageDocument>({
-    query: pageQuery(slug, language),
-  });
-  if (!document) notFound();
-  return createPageMetadata(document);
+export async function generateStaticParams() {
+	return client.fetch<PAGES_QUERYResult>(PAGES_QUERY).then(
+		(pages) =>
+			pages
+				.map((page) => {
+					return {
+						slug: page.slug?.current,
+						language: page.language,
+					};
+				})
+				.filter(
+					(props) =>
+						typeof props.slug === "string" && typeof props.language === "string"
+				) as { slug: string; language: string }[]
+	);
 }

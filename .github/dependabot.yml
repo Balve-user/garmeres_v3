@@ -70,7 +70,6 @@ updates:
           - "@mui/*"
           - "@emotion/*"
           - "styled-components"
-          - "postcss"
           - "tailwindcss"
           - "tailwindcss*"
           - "@tailwindcss/*"

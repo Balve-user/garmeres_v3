@@ -5,24 +5,24 @@ import { ReactNode } from "react";
 import { SanityDocument } from "next-sanity";
 
 export default async function PagePreview({
-    Component,
-    Preview,
-    query,
+	Component,
+	Preview,
+	query,
 }: {
-    Component: (props: any) => ReactNode;
-    Preview: any;
-    query: string;
+	Component: (props: any) => ReactNode;
+	Preview: any;
+	query: string;
 }) {
-    const data = await sanityFetch<SanityDocument>({ query });
+	const data = await sanityFetch<SanityDocument>({ query });
 
-    return (
-        <LiveQuery
-            enabled={draftMode().isEnabled}
-            query={query}
-            initialData={data}
-            as={Preview}
-        >
-            <Component document={data} />
-        </LiveQuery>
-    );
+	return (
+		<LiveQuery
+			enabled={(await draftMode()).isEnabled}
+			query={query}
+			initialData={data}
+			as={Preview}
+		>
+			<Component document={data} />
+		</LiveQuery>
+	);
 }

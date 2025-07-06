@@ -1,0 +1,51 @@
+import { defineField, defineType } from "sanity";
+import slugField, { isUnique } from "@/sanity/schemaTypes/fields/slug";
+
+export default defineType({
+	name: "page",
+	type: "document",
+	title: "Page",
+	fields: [
+		defineField({
+			name: "title",
+			title: "Title",
+			type: "string",
+			validation: (rule) => rule.required(),
+		}),
+		slugField({
+			source: "title",
+			isUnique: isUnique("page"),
+		}),
+		defineField({
+			name: "featured",
+			title: "Featured banner",
+			description: "Banner shown on the top of the page (optional)",
+			type: "featured",
+		}),
+		defineField({
+			name: "body",
+			title: "Body",
+			type: "portable-text",
+			validation: (rule) => rule.required(),
+		}),
+		defineField({
+			name: "backgroundImage",
+			title: "Background image",
+			type: "portable-image",
+		}),
+		defineField({
+			name: "menuIndex",
+			title: "Menu index",
+			description:
+				"Pages with a lower menu index will appear first in the main menu.",
+			type: "number",
+		}),
+		defineField({
+			name: "language",
+			type: "string",
+			readOnly: true,
+			hidden: true,
+			validation: (rule) => rule.required(),
+		}),
+	],
+});

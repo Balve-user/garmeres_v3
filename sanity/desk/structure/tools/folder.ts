@@ -3,7 +3,7 @@ import {
 	ListItem,
 	ListItemBuilder,
 	StructureBuilder,
-} from 'sanity/structure';
+} from "sanity/structure";
 
 export default function createFolder(
 	S: StructureBuilder,
