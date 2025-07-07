@@ -7,8 +7,11 @@ export const generateStaticParams = generateStaticLanguageParams;
 
 export const dynamicParams = true;
 
-export default function Page(props: { params?: { language?: string } }) {
-  if (!isLanguage(props.params?.language)) notFound();
-  const language = forceLanguage(props.params?.language);
-  permanentRedirect(homeFullSlug[language as Language]);
+export default async function Page(props: {
+	params: Promise<{ language?: string } | null>;
+}) {
+	const p = await props.params;
+	if (!isLanguage(p?.language)) notFound();
+	const language = forceLanguage(p?.language);
+	permanentRedirect(homeFullSlug[language as Language]);
 }
