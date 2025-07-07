@@ -8,7 +8,6 @@ export default async function MembershipRegistrationForm({
 	title: string;
 }) {
 	const props = await getMembershipRegistration();
-	console.log(props);
 	return (
 		<div>
 			<section lang="no" className="my-4" aria-label={title}>

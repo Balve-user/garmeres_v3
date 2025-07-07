@@ -9,24 +9,24 @@ export const generateStaticParams = generateStaticLanguageParams;
 export const dynamicParams = true;
 
 export default async function Layout({
-  children,
-  params,
+	children,
+	params,
 }: {
-  children: ReactNode;
-  params?: { language?: Language };
+	children: ReactNode;
+	params: Promise<{ language?: Language } | null>;
 }) {
-  const language = forceLanguage(params?.language);
-  const menuItems = await getMenuItems({
-    language: language,
-  });
-  return (
-    <RootLayout
-      menuItems={menuItems}
-      params={{
-        language,
-      }}
-    >
-      {children}
-    </RootLayout>
-  );
+	const language = forceLanguage((await params)?.language);
+	const menuItems = await getMenuItems({
+		language: language,
+	});
+	return (
+		<RootLayout
+			menuItems={menuItems}
+			params={{
+				language,
+			}}
+		>
+			{children}
+		</RootLayout>
+	);
 }

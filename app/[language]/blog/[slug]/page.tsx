@@ -16,44 +16,46 @@ export const generateStaticParams = () => generateStaticSlugParams("blog-post");
 export const dynamicParams = false;
 
 export default async function Page({
-  params,
+	params,
 }: {
-  params: {
-    language?: Language;
-    slug: string;
-  };
+	params: Promise<{
+		language?: Language;
+		slug: string;
+	}>;
 }) {
-  const language = forceLanguage(params.language);
-  const slug = params.slug;
-  const data = await sanityFetch<BlogPostDocument>({
-    query: blogPostQuery(slug, language),
-  });
-  if (!data) notFound();
-  return (
-    <LiveQuery
-      enabled={draftMode().isEnabled}
-      query={blogPostQuery(slug, language)}
-      initialData={data}
-      as={Preview}
-    >
-      <Component document={data} />
-    </LiveQuery>
-  );
+	const p = await params;
+	const language = forceLanguage(p.language);
+	const slug = p.slug;
+	const data = await sanityFetch<BlogPostDocument>({
+		query: blogPostQuery(slug, language),
+	});
+	if (!data) notFound();
+	return (
+		<LiveQuery
+			enabled={(await draftMode()).isEnabled}
+			query={blogPostQuery(slug, language)}
+			initialData={data}
+			as={Preview}
+		>
+			<Component document={data} />
+		</LiveQuery>
+	);
 }
 
 export async function generateMetadata({
-  params,
+	params,
 }: {
-  params: {
-    language: Language;
-    slug: string;
-  };
+	params: Promise<{
+		language: Language;
+		slug: string;
+	}>;
 }): Promise<Metadata> {
-  const language = forceLanguage(params.language);
-  const slug = params.slug;
-  const document = await sanityFetch<BlogPostDocument>({
-    query: blogPostQuery(slug, language),
-  });
-  if (!document) notFound();
-  return createBlogPostMetadata(document);
+	const p = await params;
+	const language = forceLanguage(p.language);
+	const slug = p.slug;
+	const document = await sanityFetch<BlogPostDocument>({
+		query: blogPostQuery(slug, language),
+	});
+	if (!document) notFound();
+	return createBlogPostMetadata(document);
 }
