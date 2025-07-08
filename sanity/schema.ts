@@ -11,8 +11,10 @@ import eventsBrowser from "./schemas/blocks/events-browser";
 import seo from "./schemas/documents/seo";
 import registrationForm from "./schemas/blocks/membership-registration-form";
 import accordion from "./schemas/blocks/accordion";
-import person from "./schemas/fields/person";
+import person from "./schemas/documents/person";
 import membershipForm from "./schemas/documents/membership-registration";
+import board from "./schemas/documents/board";
+import reusableImage from "./schemas/documents/reusable-image";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
 	types: [
@@ -30,5 +32,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
 		accordion,
 		person,
 		membershipForm,
+		board,
+		reusableImage,
 	],
 };
