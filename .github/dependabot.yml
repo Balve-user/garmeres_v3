@@ -10,61 +10,18 @@ updates:
     schedule:
       interval: "daily"
     groups:
-      # Security patches
-      security-patches:
-        applies-to: security-updates
-        dependency-type: production
-        update-types:
-          - "patch"
-      security-patches-dev:
-        applies-to: security-updates
-        dependency-type: development
-        update-types:
-          - "patch"
-
-      # Security
       security:
         applies-to: security-updates
-        dependency-type: production
-        update-types:
-          - "minor"
-          - "major"
-      security-dev:
-        applies-to: security-updates
-        dependency-type: development
-        update-types:
-          - "minor"
-          - "major"
-
-      # Version patches
-      patches:
-        applies-to: version-updates
-        dependency-type: production
-        update-types:
-          - "patch"
-      patches-dev:
-        applies-to: version-updates
-        dependency-type: development
-        update-types:
-          - "patch"
-
-      # Third parties
       sanity:
         patterns:
           - "sanity"
           - "sanity*"
           - "@sanity/*"
-        update-types:
-          - "patch"
-          - "minor"
       next:
         patterns:
           - "next"
           - "next*"
           - "@next/*"
-        update-types:
-          - "patch"
-          - "minor"
       mui:
         patterns:
           - "@mui/*"
@@ -74,18 +31,8 @@ updates:
           - "tailwindcss"
           - "tailwindcss*"
           - "@tailwindcss/*"
-        update-types:
-          - "patch"
-          - "minor"
-          
-      # Minor versions
       minor:
         applies-to: version-updates
-        dependency-type: production
         update-types:
-          - "minor"
-      minor-dev:
-        applies-to: version-updates
-        dependency-type: development
-        update-types:
+          - "patch"
           - "minor"
