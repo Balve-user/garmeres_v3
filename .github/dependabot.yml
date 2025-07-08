@@ -77,3 +77,15 @@ updates:
         update-types:
           - "patch"
           - "minor"
+          
+      # Minor versions
+      minor:
+        applies-to: version-updates
+        dependency-type: production
+        update-types:
+          - "minor"
+      minor-dev:
+        applies-to: version-updates
+        dependency-type: development
+        update-types:
+          - "minor"
