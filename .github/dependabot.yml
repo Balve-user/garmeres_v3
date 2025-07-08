@@ -12,6 +12,15 @@ updates:
     groups:
       security:
         applies-to: security-updates
+        update-types:
+          - "patch"
+          - "minor"
+          - "major"
+      minor:
+        applies-to: version-updates
+        update-types:
+          - "patch"
+          - "minor"
       sanity:
         patterns:
           - "sanity"
@@ -31,8 +40,3 @@ updates:
           - "tailwindcss"
           - "tailwindcss*"
           - "@tailwindcss/*"
-      minor:
-        applies-to: version-updates
-        update-types:
-          - "patch"
-          - "minor"
