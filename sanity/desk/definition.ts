@@ -3,7 +3,7 @@ import { ListItemOptions } from "./structure/tools/list-item";
 export const deskDefinition: DeskDefinition[] = [
 	{
 		type: "group",
-		title: "Settings",
+		title: "Organisation",
 		items: [
 			{
 				schemaType: "contact",
@@ -11,16 +11,14 @@ export const deskDefinition: DeskDefinition[] = [
 				singleton: true,
 			},
 			{
-				schemaType: "membership-registration",
-				title: "Membership registration",
+				schemaType: "board",
+				title: "Board members",
 				singleton: true,
 				translated: false,
 			},
 			{
-				schemaType: "seo",
-				title: "Site metadata",
-				singleton: true,
-				translated: true,
+				schemaType: "person",
+				title: "People",
 			},
 		],
 	},
@@ -46,6 +44,28 @@ export const deskDefinition: DeskDefinition[] = [
 			`${doc.language || ""}/blog${
 				doc.slug.current ? `/${doc.slug.current}` : ""
 			}`,
+	},
+	{
+		schemaType: "reusable-image",
+		title: "Images",
+	},
+	{
+		type: "group",
+		title: "Settings",
+		items: [
+			{
+				schemaType: "membership-registration",
+				title: "Membership registration",
+				singleton: true,
+				translated: false,
+			},
+			{
+				schemaType: "seo",
+				title: "Site metadata",
+				singleton: true,
+				translated: true,
+			},
+		],
 	},
 ];
 

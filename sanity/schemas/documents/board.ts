@@ -1,3 +1,4 @@
+import { rule } from "postcss";
 import { defineField, defineType } from "sanity";
 
 export default defineType({
@@ -11,21 +12,18 @@ export default defineType({
 	},
 	fields: [
 		defineField({
-			name: "enabled",
-			title: "Enabled",
-			type: "boolean",
-			validation: (rule) => rule.required(),
-			initialValue: true,
-		}),
-		defineField({
 			name: "members",
 			title: "Board members",
 			type: "array",
 			of: [
 				{
-					type: "person",
+					type: "reference",
+					to: {
+						type: "person",
+					},
 				},
 			],
+			validation: (rule) => rule.unique(),
 		}),
 	],
 });
